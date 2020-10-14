@@ -1,0 +1,57 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+Included Files:
+1) lab0.c
+This is a program that copies its standard input to its standard output by read(2)ing from file descriptor 0 and write(2)ing to file descript 1. The following arguments can be specified in any combination or order:
+	a) --input=filename
+	This allows users to use specified file as standard input.
+	b) --output=filename
+	The program will create the specified file and use it as standard output.
+	c) --segfault
+	This forces a segmentation fault by attempting to dereference a NULL pointer. If called, nothing will be read or written.
+	d) --catch
+	This catches a segmentation fault and logs an error message to stderr.
+2) Makefile
+This Makefile consists of 4 main components:
+	a) default
+	This builds an executable from lab0.c.
+	b) clean
+	This restores everything to original state prior to running the Makefile and deletes any new files that were created.
+	c) dist
+	This builds a single compressed tarball containing lab0.c, Makefile, two screen snapshots from a gdb(1) session, and this README file.
+	d) check
+	This runs a quick smoke-test on whether or not the program seems to work supports the required arguments, and properly reports success or failure. Please see below for details.
+3) Two screen snapshots from a gdb(1) session
+	a) backtrace.png
+	This shows a segfault and associated stack-trace.
+	b) breakpoint.png
+	This shows a breakpoint and variable inspection.
+4) README
+	This file includes identification information, a description of the included files, smoke-test cases, challenges I faced, and sources I used to complete this project.
+
+Smoke Test:
+1) ./lab0 --segfault
+This test ensures that when purely --segfault is called, the correct return code of 139 is returned. The error code for segmentation faults is 139, according to http://www.cplusplus.com/forum/beginner/247792/
+2) ./lab0 --catch --segfault
+This test ensures that the --catch option works properly when a segmentation fault occurs. The error code returned should be 4.
+3) ./lab0 --input in.txt
+This test ensures that the --input option works properly. The error code returned should be 0.
+4) ./lab0 --input in.txt --output out.txt
+This test ensures that both the --input and --output options work properly. The error code returned should be 0.
+
+Challenges:
+-- The smoke test cases took a lot longer to figure out than I had expected, but I was able to figure it out after referencing the provided test script and other online materials.
+-- I got a few warnings about unused variables since the program was compiled using -Wall and -Wextra, so my program wasn't passing the sanity test initially. Once I realized that, I was able to modify my program so that there were no unused variables.
+-- Initially, I used O_WRONLY for creat(2)ing my output files. I found that I couldn't read the output files after the commands were ran. I checked the permissions of the file using "ls -al", and I found that O_WRONLY only has permission 01, according to https://stackoverflow.com/questions/19365109/using-o-rdwr-vs-o-rdonly-o-wronly. It took me awhile to figure out, but 0666 is the correct permission to use in this case since it provides read-write access to the owner, group, and others.
+
+Resources:
+-- gcc options (-Wextra and -Wall): https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#Warning-Options
+-- distribution tarballs: http://www.linuxfromscratch.org/alfs/view/hacker/part2/hacker/distro_tarballs.html#:~:text=%20Distribution%20Tarballs%20%201%20Run%20.%2Fconfigure%20specifying,configure%20for%20it%20to%20complete%20%28like...%20More%20
+-- conditions in shell scripting: https://blog.eduonix.com/shell-scripting/understanding-test-conditions-in-linux-shell-scripting/
+-- special variable types (particularly $?): https://tldp.org/LDP/abs/html/othertypesv.html
+-- permission modes: https://jameshfisher.com/2017/02/24/what-is-mode_t/
+-- visual understanding of modes and permissions: https://ss64.com/bash/chmod.html
+-- make and return statuses: https://unix.stackexchange.com/questions/18807/where-can-i-find-a-list-of-make-error-codes
+-- running .sh file scripts: https://www.cyberciti.biz/faq/run-execute-sh-shell-script/
