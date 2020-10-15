@@ -1,0 +1,36 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+Research:
+Terminal mode data types: https://www.gnu.org/software/libc/manual/html_node/Mode-Data-Types.html
+Chapter 5: fork(), exec(), wait()
+Polling and Interrupts: https://www.tutorialspoint.com/operating_system/os_io_hardware.htm#:~:text=Polling%20is%20the%20simplest%20way%20for%20an%20I%2FO,the%20processor%20must%20come%20and%20get%20the%20information
+Serial programming/termios: https://en.wikibooks.org/wiki/Serial_Programming/termios#:~:text=The%20termios%20I%2FO%20API%20supports%20two%20different%20modes%3A,communication.%20The%20terminal%20driver%20returns%20data%20line-by-line.%202
+Tcgetattr(): https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.3.0/com.ibm.zos.v2r3.bpxbd00/rttcga.htm
+Termios man page: https://man7.org/linux/man-pages/man3/termios.3.html
+Advanced Programming in the Unix Environment pdf:  https://ameensheriffmca.files.wordpress.com/2014/02/advanced-programming-in-the-unix-environment-by-w-richard-stevens-stephen-a-rago-ii-edition.pdf
+Converting Control Codes to ASCII, Decimal and Hexadecimal: https://www.windmill.co.uk/ascii-control-codes.html#:~:text=Converting%20Control%20Codes%20to%20ASCII%2C%20Decimal%20and%20Hexadecimal,%20%20Acknowledge%20%2029%20more%20rows%20
+Pipe(): https://linux.die.net/man/2/pipe
+Exec(): https://docs.oracle.com/cd/E19455-01/806-0626/6j9vgh64s/index.html
+Dup() and dup2(): https://www.tutorialspoint.com/unix_system_calls/dup.htm#:~:text=%20dup%28%29%20-%20Unix%2C%20Linux%20System%20Call%20,dup2%28%29%20also%20sometimes%20returns%20EINVALlike%20F_DUPFD.%20More%20
+C program with fork() and pipe(): https://www.geeksforgeeks.org/c-program-demonstrate-fork-and-pipe/
+
+Limitations:
+I didn't get one of the test cases in the sanity check to pass: "... confirming correct large-burst input processing" 
+
+Features:
+In this project, I built a multi-process telnet-like client and server. Part A of the project (this part) can be broken up into two major steps:
+1) Character-at-a-time, full duplex terminal I/O
+2) Polled I/O and passing input and output between two processes
+
+Testing Methodology:
+This project was particularly difficult to test. I tried to implement as much as I could incrementally (e.g. checking if non-canonical input mode with no echo was set properly, checking if <cr><lf> was printed properly). The second part was much harder to implement incrementally, but I tried to include as many tests as I could, some of which are listed below:
+1)	./lab1a
+	hi
+	^D
+2)	./lab1a --shell=/bin/bash
+	echo "Hello world"
+	Hello world
+	^D
+	SHELL EXIT SIGNAL=0 STATUS=0
