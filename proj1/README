@@ -17,7 +17,7 @@ Dup() and dup2(): https://www.tutorialspoint.com/unix_system_calls/dup.htm#:~:te
 C program with fork() and pipe(): https://www.geeksforgeeks.org/c-program-demonstrate-fork-and-pipe/
 
 Limitations:
-I didn't get one of the test cases in the sanity check to pass: "... confirming correct large-burst input processing" 
+None
 
 Features:
 In this project, I built a multi-process telnet-like client and server. Part A of the project (this part) can be broken up into two major steps:
