@@ -1,0 +1,9 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+Resources
+Cannot Install Driver of BeagleBone on Windows 10: https://stackoverflow.com/questions/52065512/cannot-install-the-driver-of-beaglebone-on-the-windows-10
+How to Disable Driver Signature Verification on 64-bit Windows 10: https://www.howtogeek.com/167723/how-to-disable-driver-signature-verification-on-64-bit-windows-8.1-so-that-you-can-install-unsigned-drivers/
+Disabling Secure Boot: https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/disabling-secure-boot#:~:text=Disable%20Secure%20Boot%201%20Before%20disabling%20Secure%20Boot%2C,Advanced%20Options%3A%20UEFI%20Firmware%20Settings.%20More%20items%20
+Apt-Get Git: https://github.com/git-guides/install-git#:~:text=%20Debian%2FUbuntu%20%201%20Git%20packages%20are%20available,the%20installation%20by%20typing%3A%20git%20version.%20More%20
