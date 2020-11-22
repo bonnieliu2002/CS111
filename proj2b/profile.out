@@ -1,0 +1,149 @@
+Total: 444 samples
+     420  94.6%  94.6%      444 100.0% doStuff
+       6   1.4%  95.9%       17   3.8% SortedList_insert
+       3   0.7%  96.6%        7   1.6% SortedList_lookup
+       2   0.5%  97.1%        2   0.5% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:203
+       2   0.5%  97.5%        2   0.5% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:239
+       1   0.2%  97.7%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:161
+       1   0.2%  98.0%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:164
+       1   0.2%  98.2%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:165
+       1   0.2%  98.4%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:206
+       1   0.2%  98.6%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:211
+       1   0.2%  98.9%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:227
+       1   0.2%  99.1%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:232
+       1   0.2%  99.3%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:238
+       1   0.2%  99.5%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:1056
+       1   0.2%  99.8%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:1146
+       1   0.2% 100.0%        1   0.2% ?? /usr/src/debug////////glibc-2.17-c758a686/string/../sysdeps/x86_64/multiarch/strcmp-sse42.S:1593
+       0   0.0% 100.0%      444 100.0% ?? /usr/src/debug////////glibc-2.17-c758a686/misc/../sysdeps/unix/sysv/linux/x86_64/clone.S:118
+       0   0.0% 100.0%      444 100.0% start_thread
+ROUTINE ====================== doStuff in /u/cs/ugrad/bonniel/CS111/proj2b/lab2_list.c
+   420    444 Total samples (flat / cumulative)
+     .      .   31: 	fprintf(stderr, "segmentation fault caught\n");
+     .      .   32: 	exit(2);
+     .      .   33: }
+     .      .   34: 
+     .      .   35: 
+---
+     .      .   36: void* doStuff(void* arg) {
+     .      .   37: 	// SortedList_insert
+     .      .   38: 	for (int i = *((int*) arg); i < numElements; i += numThreads) {
+     .      .   39: 		if (syncType && syncType[0] == 'm')
+     .      .   40: 			pthread_mutex_lock(&mLock);
+     .      .   41: 		else if (syncType && syncType[0] == 's')
+   324    324   42: 			while (__sync_lock_test_and_set(&sLock, 1));
+     .     17   43: 		SortedList_insert(head, &(elements[i]));
+     .      .   44: 		if (syncType && syncType[0] == 'm')
+     .      .   45: 			pthread_mutex_unlock(&mLock);
+     .      .   46: 		else if (syncType && syncType[0] == 's')
+     .      .   47: 			__sync_lock_release(&sLock);
+     .      .   48: 	}
+     .      .   49: 
+     .      .   50: 	// SortedList_length
+     .      .   51: 	if (syncType && syncType[0] == 'm')
+     .      .   52: 		pthread_mutex_lock(&mLock);
+     .      .   53: 	else if (syncType && syncType[0] == 's')
+     .      .   54: 		while (__sync_lock_test_and_set(&sLock, 1));
+     .      .   55: 	int size = SortedList_length(head);
+     .      .   56: 	if (size < 0) {
+     .      .   57: 		fprintf(stderr, "SortedList_length cannot be negative\n");
+     .      .   58: 		exit(2);
+     .      .   59: 	}
+     .      .   60: 	if (syncType && syncType[0] == 'm')
+     .      .   61: 		pthread_mutex_unlock(&mLock);
+     .      .   62: 	else if (syncType && syncType[0] == 's')
+     .      .   63: 		__sync_lock_release(&sLock);
+     .      .   64: 
+     .      .   65: 	// SortedList_lookup and SortedList_delete
+     .      .   66: 	for (int i = *((int*)arg); i < numElements; i += numThreads) {
+     .      .   67: 		if (syncType && syncType[0] == 'm')
+     .      .   68: 			pthread_mutex_lock(&mLock);
+     .      .   69: 		else if (syncType && syncType[0] == 's')
+    96     96   70: 			while (__sync_lock_test_and_set(&sLock, 1));
+     .      7   71: 		SortedListElement_t* toDelete = SortedList_lookup(head, elements[i].key);
+     .      .   72: 		if (!toDelete) {
+     .      .   73: 			fprintf(stderr, "element not found\n");
+     .      .   74: 			exit(2);
+     .      .   75: 		}
+     .      .   76: 		if (SortedList_delete(toDelete)) {
+     .      .   77: 			fprintf(stderr, "corrupted list; problem deleting element\n");
+     .      .   78: 			exit(2);
+     .      .   79: 		}
+     .      .   80: 		if (syncType && syncType[0] == 'm')
+     .      .   81: 			pthread_mutex_unlock(&mLock);
+     .      .   82: 		else if (syncType && syncType[0] == 's')
+     .      .   83: 			__sync_lock_release(&sLock);
+     .      .   84: 	}
+     .      .   85: 	return NULL;
+     .      .   86: }
+---
+     .      .   87: 
+     .      .   88: 
+     .      .   89: int main(int argc, char* argv[]) {
+     .      .   90: 	static int threadsFlag;
+     .      .   91: 	static int iterFlag;
+ROUTINE ====================== doStuff in /u/cs/ugrad/bonniel/CS111/proj2b/lab2_list.c
+   420    444 Total samples (flat / cumulative)
+     .      .   31: 	fprintf(stderr, "segmentation fault caught\n");
+     .      .   32: 	exit(2);
+     .      .   33: }
+     .      .   34: 
+     .      .   35: 
+---
+     .      .   36: void* doStuff(void* arg) {
+     .      .   37: 	// SortedList_insert
+     .      .   38: 	for (int i = *((int*) arg); i < numElements; i += numThreads) {
+     .      .   39: 		if (syncType && syncType[0] == 'm')
+     .      .   40: 			pthread_mutex_lock(&mLock);
+     .      .   41: 		else if (syncType && syncType[0] == 's')
+   324    324   42: 			while (__sync_lock_test_and_set(&sLock, 1));
+     .     17   43: 		SortedList_insert(head, &(elements[i]));
+     .      .   44: 		if (syncType && syncType[0] == 'm')
+     .      .   45: 			pthread_mutex_unlock(&mLock);
+     .      .   46: 		else if (syncType && syncType[0] == 's')
+     .      .   47: 			__sync_lock_release(&sLock);
+     .      .   48: 	}
+     .      .   49: 
+     .      .   50: 	// SortedList_length
+     .      .   51: 	if (syncType && syncType[0] == 'm')
+     .      .   52: 		pthread_mutex_lock(&mLock);
+     .      .   53: 	else if (syncType && syncType[0] == 's')
+     .      .   54: 		while (__sync_lock_test_and_set(&sLock, 1));
+     .      .   55: 	int size = SortedList_length(head);
+     .      .   56: 	if (size < 0) {
+     .      .   57: 		fprintf(stderr, "SortedList_length cannot be negative\n");
+     .      .   58: 		exit(2);
+     .      .   59: 	}
+     .      .   60: 	if (syncType && syncType[0] == 'm')
+     .      .   61: 		pthread_mutex_unlock(&mLock);
+     .      .   62: 	else if (syncType && syncType[0] == 's')
+     .      .   63: 		__sync_lock_release(&sLock);
+     .      .   64: 
+     .      .   65: 	// SortedList_lookup and SortedList_delete
+     .      .   66: 	for (int i = *((int*)arg); i < numElements; i += numThreads) {
+     .      .   67: 		if (syncType && syncType[0] == 'm')
+     .      .   68: 			pthread_mutex_lock(&mLock);
+     .      .   69: 		else if (syncType && syncType[0] == 's')
+    96     96   70: 			while (__sync_lock_test_and_set(&sLock, 1));
+     .      7   71: 		SortedListElement_t* toDelete = SortedList_lookup(head, elements[i].key);
+     .      .   72: 		if (!toDelete) {
+     .      .   73: 			fprintf(stderr, "element not found\n");
+     .      .   74: 			exit(2);
+     .      .   75: 		}
+     .      .   76: 		if (SortedList_delete(toDelete)) {
+     .      .   77: 			fprintf(stderr, "corrupted list; problem deleting element\n");
+     .      .   78: 			exit(2);
+     .      .   79: 		}
+     .      .   80: 		if (syncType && syncType[0] == 'm')
+     .      .   81: 			pthread_mutex_unlock(&mLock);
+     .      .   82: 		else if (syncType && syncType[0] == 's')
+     .      .   83: 			__sync_lock_release(&sLock);
+     .      .   84: 	}
+     .      .   85: 	return NULL;
+     .      .   86: }
+---
+     .      .   87: 
+     .      .   88: 
+     .      .   89: int main(int argc, char* argv[]) {
+     .      .   90: 	static int threadsFlag;
+     .      .   91: 	static int iterFlag;

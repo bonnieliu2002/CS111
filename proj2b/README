@@ -1,0 +1,17 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+QUESTIONS
+2.3.1) CPU time in the basic list implementation
+Most of the CPU time is being spent performing SortedList operations in the 1 and 2-thread list tests because there aren't that many threads to wait for, so it's reasonable to assume that most of the time is spent actually performing SortedList operations.
+In the high-thread spin-lock tests, the most expensive parts of the code is the threads spinning, waiting for its turn to gain control of the CPU.
+In the high-thread mutex tests, the most expensive parts of the code is performing SortedList operations because while one thread is running, the other ones are sleeping.
+2.3.2) Execution Profiling
+The lines of code waiting for the spin lock to become available are consuming most of the CPU time when the spin-lock version of the list exerciser is run with a large number of threads. This operation becomes more expensive as the number of threads increases because there are a lot more threads to wait for and thus each thread will be spinning for longer.
+2.3.3) Mutex Wait Time
+Average lock-wait time rises so dramatically with the number of contending threads because the more threads there are, the longer each thread has to ait to obtain the lock.
+The completion time per operation rises (less dramatically) with the number of contending threads because having more threads means more operations are needed.
+It is possible for the wait time per operation to go up faster (or higher) than the completion time per operation because finding the wait time per operation involves summing up the time each thread spends waiting to obtain its locks. Finding the completion time per operation involves calculating the time difference between when the threads were created and when the last one finishes. The wait times could overlap whereas the completion time could not, so that's why the wait time per operation can go up faster than the completion time per operation.
+2.3.4) Performance of Partitioned Lists
+
