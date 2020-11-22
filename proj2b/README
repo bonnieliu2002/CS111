@@ -1,0 +1,28 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+QUESTIONS
+2.3.1) CPU time in the basic list implementation
+Most of the CPU time is being spent performing SortedList operations in the 1 and 2-thread list tests because there aren't that many threads to wait for, so it's reasonable to assume that most of the time is spent actually performing SortedList operations.
+In the high-thread spin-lock tests, the most expensive parts of the code is the threads spinning, waiting for its turn to gain control of the CPU.
+In the high-thread mutex tests, the most expensive parts of the code is performing SortedList operations because while one thread is running, the other ones are sleeping.
+2.3.2) Execution Profiling
+The lines of code waiting for the spin lock to become available are consuming most of the CPU time when the spin-lock version of the list exerciser is run with a large number of threads. This operation becomes more expensive as the number of threads increases because there are a lot more threads to wait for and thus each thread will be spinning for longer.
+2.3.3) Mutex Wait Time
+Average lock-wait time rises so dramatically with the number of contending threads because the more threads there are, the longer each thread has to ait to obtain the lock.
+The completion time per operation rises (less dramatically) with the number of contending threads because having more threads means more operations are needed.
+It is possible for the wait time per operation to go up faster (or higher) than the completion time per operation because finding the wait time per operation involves summing up the time each thread spends waiting to obtain its locks. Finding the completion time per operation involves calculating the time difference between when the threads were created and when the last one finishes. The wait times could overlap whereas the completion time could not, so that's why the wait time per operation can go up faster than the completion time per operation.
+2.3.4) Performance of Partitioned Lists
+The more lists we have, the better our synchronized methods perform because splitting lists increases efficiency by decreasing contention. Additionally, insertions can occur faster since for a linked list, insertion take O(n) time, where n is the size of the list.
+The throughput should continue increasing as the number of lists is further increased until the number of lists equals the number of elements we have because then inserting and accessing elements will be an O(1) time operation.
+This appears to be somewhat true since graph #4 seems to mildly represent this behavior while graph #5 does not as much.
+
+CHALLENGES
+-- Trying to learn how to use gperftools. I used Piazza and TA slides as well as a couple of online resources (please see below).
+-- Previously, in Project 2A, I locked the entire function, and it took me some time to figure out how to fix the problem for Project 2B.
+
+RESOURCES
+-- Configuring Path: https://askubuntu.com/questions/324261/configure-no-such-file-or-directory-even-after-installing-build-essentials#:~:text=The%20reason%20why%20you%20are%20getting%20the%20%22bash%3A,by%20right-clicking%20on%20it%20and%20select%20%27Extract%20Here%27.
+-- ./configure --prefix=<path>: https://askubuntu.com/questions/891835/what-does-prefix-do-exactly-when-used-in-configure
+-- Gperftools: https://github.com/gperftools/gperftools
