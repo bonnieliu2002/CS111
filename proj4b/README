@@ -1,0 +1,24 @@
+NAME: Bonnie Liu
+EMAIL: bonnieliu2002@g.ucla.edu
+ID: 005300989
+
+CHALLENGES
+-- Understanding the difference between digital and analog
+-- Initially, I was going to use file redirection and write() to generate my log outputs as I did in Project 0, but upon looking on Piazza and doing some online research (please see below), I decided fopen() and fgets() are the best options to use for this project.
+-- Initially, I used strcmp() for processing the commands, but I ran into issues because instead of reading in \0, my program was reading in \n. That's why strcmp() always return false. I wrote my own myStrcmp() function that only checked if 2 strings were equal.
+
+RESOURCES
+-- Compiling using <math.h> library for log10(): c - Undefined reference to log10? - Stack Overflow
+-- Usleep(3): usleep(3) - Linux man page (die.net)
+-- Converting from sensor input to Celsius: Grove - Temperature Sensor V1.2 - Seeed Wiki (seeedstudio.com)
+-- Localtime(): C library function - localtime() - Tutorialspoint
+-- Restricting decimal places for a float: How do I restrict a float value to only two places after the decimal point in C? - Stack Overflow
+-- Determining which function to use for --log=filename: linux - C fopen vs open - Stack Overflow
+-- Fopen(): C library function - fopen() - Tutorialspoint
+-- Fopen(): fopen - C++ Reference (cplusplus.com)
+-- Mraa_gpio_isr(): mraa: Gpio Class Reference (intel.com)
+-- Fgets(): How to Use the fgets() Function for Text Input in C Programming (dummies.com)
+-- Poll(): How do I use poll()? (unixguide.net)
+-- Poll(): poll(2) - Linux manual page (man7.org)
+-- Strcmp(): https://www.tutorialspoint.com/c_standard_library/c_function_strcmp.htm
+-- Strstr(): http://www.cplusplus.com/reference/cstring/strstr/
