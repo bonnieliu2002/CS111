@@ -1,7 +1,3 @@
-# NAME: Bonnie Liu,Janice Tsai
-# EMAIL: bonnieliu2002@g.ucla.edu,janicetsai@g.ucla.edu
-# ID: 005300989,705318599
-
 default:
 	rm -f lab3b
 	ln link_lab3b lab3b 
