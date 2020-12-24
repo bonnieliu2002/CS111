@@ -1,0 +1,16 @@
+# NAME: Bonnie Liu
+# EMAIL: bonnieliu2002@g.ucla.edu
+# ID: 005300989
+
+DESCRIPTION OF FILES
+-- lab4c_tcp.c: a C source file that opens up TCP connection to server at specified address and port
+-- lab4c_tls.c: a C source file that uses authenticated TLS session encryption
+-- Makefile: builds executables and tarball
+
+RESOURCES
+-- processing non-switch argument: https://linux.die.net/man/3/optind
+-- gethostbyname(): https://stackoverflow.com/questions/2865583/gethostbyname-in-c
+-- strcat(): https://www.tutorialspoint.com/c_standard_library/c_function_strcat.htm
+-- sprintf(): https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
+-- strtok(): https://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm
+-- memset(): https://www.tutorialspoint.com/c_standard_library/c_function_memset.htm
