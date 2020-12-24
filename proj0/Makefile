@@ -1,7 +1,3 @@
-#NAME: Bonnie Liu
-#EMAIL: bonnieliu2002@g.ucla.edu
-#UID: 005300989
-
 default:
 	gcc -g -Wall -Wextra lab0.c -o lab0
 
