@@ -1,6 +1,5 @@
 NAME: Bonnie Liu
-EMAIL: bonnieliu2002@g.ucla.edu
-ID: 005300989
+SCORE: 100/100
 
 DESCRIPTION
 This project is a continuation of Project 1A. I built a multi-process telnet-like client and server. It can be broken up into two major steps:
