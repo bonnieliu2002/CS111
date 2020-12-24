@@ -1,7 +1,3 @@
-# NAME: Bonnie Liu
-# EMAIL: bonnieliu2002@g.ucla.edu
-# ID: 005300989
-
 default:
 	gcc -Wall -Wextra -lmraa -o lab4c_tcp lab4c_tcp.c -lm
 	gcc -Wall -Wextra -lmraa -lssl -lcrypto -o lab4c_tls lab4c_tls.c -lm
