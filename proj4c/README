@@ -1,6 +1,5 @@
-# NAME: Bonnie Liu
-# EMAIL: bonnieliu2002@g.ucla.edu
-# ID: 005300989
+NAME: Bonnie Liu
+SCORE: 95/100
 
 DESCRIPTION OF FILES
 -- lab4c_tcp.c: a C source file that opens up TCP connection to server at specified address and port
