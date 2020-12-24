@@ -1,7 +1,3 @@
-// NAME: Bonnie Liu
-// EMAIL: bonnieliu2002@g.ucla.edu
-// ID: 005300989
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <getopt.h>
